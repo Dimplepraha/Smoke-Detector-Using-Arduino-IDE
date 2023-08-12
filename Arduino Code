@@ -1,0 +1,30 @@
+int buzzer = 10;
+int smokeA0 = A5;
+int led = 8;
+// Your threshold value. You might need to change it.
+int sensorThres = 300;
+void setup() {
+ pinMode(buzzer, OUTPUT);
+ pinMode(smokeA0, INPUT);
+ pinMode(led, OUTPUT);
+ Serial.begin(9600);
+ delay(1000);
+}
+void loop() {
+ int analogSensor = analogRead(smokeA0);
+ Serial.print("Pin A0: ");
+ Serial.println(analogSensor);
+ // Checks if it has reached the threshold value
+if (analogSensor > sensorThres)
+ {
+ Serial.print("|smoke detected!");
+ digitalWrite(led, HIGH);
+ tone(buzzer, 1000, 200);
+ }
+ else
+ {
+ digitalWrite(led, LOW);
+ noTone(buzzer);
+ }
+ delay(100);
+}
